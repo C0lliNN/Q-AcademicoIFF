@@ -18,4 +18,4 @@ A aplicação usa o [**Selenium WebDriver**](https://www.seleniumhq.org/projects
 
 Essa aplicação apenas pode ser usada por alunos do IFF. No link abaixo é possível baixar o arquivo executável da aplicação
 
-Link: [**Q-Acadêmico IFF**](https://academico.iff.edu.br/qacademico/index.asp?t=1001)
+Link: [**Q-Acadêmico IFF - Download**](https://drive.google.com/file/d/1GP1fhloCyIaR7bTxA3oMhdLYhkGEZq_0/view?usp=sharing)
