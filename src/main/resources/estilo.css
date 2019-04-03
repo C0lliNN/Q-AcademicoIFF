@@ -1,0 +1,110 @@
+
+    /* Configurando todas as janelas para ter um fundo branco */
+
+.root{
+    -fx-background-color: #ffffff;
+}
+
+    /* Configurando os TextField da janela autenticacao */
+
+.text-field {
+    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+}
+.text-field:focused {
+    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+    -fx-border-color: green;
+}
+
+    /* Configurando o botão da janela autenticação */
+
+.botao {
+    -fx-background-radius: 10;
+    -fx-border-width: 0;
+}
+
+    /* Configurando os ComboBox da janela principal */
+
+.combo-box-base {
+    -fx-text-fill: #495057;
+    -fx-background-color: white;
+    -fx-border-color: #ced4da;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.combo-box-base:hover {
+    -fx-background-color: #f9f9f9;
+}
+
+.combo-box .list-view {
+
+    -fx-background-radius: 5px;
+    -fx-border-color: #ced4da;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-color: white;
+}
+
+.combo-box .list-view .list-cell:filled:selected {
+    -fx-background-color: #f6f6f6;
+    -fx-text-fill: black;
+}
+
+.combo-box .list-view .list-cell:filled:hover {
+    -fx-background-color: #efefef;
+    -fx-text-fill: black;
+}
+
+    /* Configurnado Table View */
+
+.table-view{
+   -fx-border-radius: 10px;
+   -fx-border-color: #f2f2f2;
+   -fx-background-radius: 10px;
+   -fx-background-color: #f2f2f2;
+}
+
+.table-view .column-header {
+     -fx-background-color: transparent;
+     -fx-border-color: #f2f2f2;
+     -fx-text-fill: #495057;
+     -fx-background-color: #f2f2f2;
+}
+
+.table-row-cell {
+    -fx-cell-size: 30px;
+
+}
+
+.table-row-cell:filled:selected {
+  -fx-background: -fx-control-inner-background ;
+  -fx-background-color: -fx-table-cell-border-color, -fx-background ;
+  -fx-background-insets: 0, 0 0 1 0 ;
+  -fx-table-cell-border-color: derive(-fx-color, 5%);
+}
+.table-row-cell:odd:filled:selected {
+  -fx-background: -fx-control-inner-background-alt ;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow,
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+
+
+
+
+
+
