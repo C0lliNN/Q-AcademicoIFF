@@ -6,7 +6,7 @@ Uma Aplicação Web Scraping feita em Java usando JavaFX com objetivo de extrair
 
 ## O que é o Q-Acadêmico IFF ?
 
-[**Q-Acadêmico IFF**](https://academico.iff.edu.br/qacademico/index.asp?t=1001) é um sistema desenvolvido pela [**Qualidata**](http://www2.qualidata.com.br/) para o [**Instituto Federal Fluminense (IFF)**](http://portal1.iff.edu.br/) com objetivo principal de permitir que professores lancem notas e os alunos possam visualizar. Porém, esse sistema já bem antigo e não possui uma aparência atrativa. Nesse sentido, essa aplicação é destinada para alunos da instituição. Com ela, é possível para os alunos visualizar suas notas de uma maneira bem mais agradável atrativa.
+[**Q-Acadêmico IFF**](https://academico.iff.edu.br/qacademico/index.asp?t=1001) é um sistema desenvolvido pela [**Qualidata**](http://www2.qualidata.com.br/) para o [**Instituto Federal Fluminense (IFF)**](http://portal1.iff.edu.br/) com objetivo principal de permitir que professores lancem notas e os alunos as possam visualizar. Porém, esse sistema já bem antigo e não possui uma aparência atrativa. Nesse sentido, essa aplicação foi desenvolvida para que os alunos da instituição possam visualizar suas notas de uma maneira bem mais agradável e atrativa.
 
 ## Como Funciona
 
