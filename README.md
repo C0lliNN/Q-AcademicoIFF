@@ -1,6 +1,6 @@
 # Q-AcademicoIFF
 
-Uma Aplicação Web Scraping feita em Java usando JavaFX com objetivo de colocar os dados de um sistema acadêmico em uma aplicação Desktop com visual mais atrativo e agradável.
+Uma Aplicação Web Scraping feita em Java usando JavaFX com objetivo de extrair notas de um sistema acadêmico pertencente ao Instituto Federal Fluimense.
 
 ![](https://i.imgur.com/diHjumb.png)
 
