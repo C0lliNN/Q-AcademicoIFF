@@ -4,18 +4,18 @@
 <?import javafx.scene.layout.*?>
 
 
-<?import javafx.scene.text.Font?>
-<GridPane fx:id="gridPane" xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.raphaelcollin.academicoiff.controller.ControllerCarregamento" alignment="CENTER" vgap="30">
+<GridPane fx:id="root" xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.raphaelcollin.academicoiff.controller.ControllerCarregamento" alignment="CENTER">
 
-    <HBox GridPane.rowIndex="0" alignment="CENTER">
-        <Label text="Autenticando" fx:id="label">
-            <font>
-                <Font name="Arial" size="50"/>
-            </font>
-        </Label>
+    <HBox alignment="CENTER" GridPane.rowIndex="0">
+        <Label fx:id="label"/>
     </HBox>
 
-    <ProgressIndicator style="-fx-accent: green" progress="0" styleClass="progress-bar-primary" GridPane.rowIndex="1" fx:id="progressIndicator"/>
+    <ProgressIndicator fx:id="progressIndicator" progress="0" GridPane.rowIndex="1"/>
+
+
+    <HBox alignment="CENTER" GridPane.rowIndex="2">
+        <Button fx:id="button" onAction="#handleVoltar" text="Voltar"/>
+    </HBox>
 
 </GridPane>

@@ -2,44 +2,34 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.geometry.Insets?>
 
-<BorderPane fx:id="borderPane" xmlns:fx="http://javafx.com/fxml"
+<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.raphaelcollin.academicoiff.controller.ControllerPrincipal">
 
-        <padding>
-            <Insets top="20"/>
-        </padding>
-
         <top>
-            <GridPane vgap="30" style="-fx-background-color: white">
+            <GridPane>
 
-                <GridPane GridPane.rowIndex="0" fx:id="gridPaneTop">
-                    <HBox alignment="CENTER" GridPane.hgrow="ALWAYS" fx:id="hboxNome" GridPane.rowIndex="0"
-                          GridPane.columnIndex="0">
-                        <Label styleClass="h1" fx:id="labelNome"/>
+                <GridPane fx:id="gridPaneNomeAluno" GridPane.rowIndex="0">
+                    <HBox fx:id="hboxNome" alignment="CENTER" GridPane.rowIndex="0"
+                          GridPane.columnIndex="0" GridPane.hgrow="ALWAYS">
+                        <Label fx:id="labelNome"/>
                     </HBox>
-                    <HBox alignment="CENTER" fx:id="hboxBotao" GridPane.rowIndex="0" GridPane.columnIndex="1">
-                        <Button onAction="#handleSair" text="Sair" styleClass="btn, btn-danger, btn-lg"/>
+                    <HBox fx:id="hBoxSairButton" alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                        <Button fx:id="sairButton" text="Sair" onAction="#handleSair"/>
                     </HBox>
-                    <BorderPane.margin>
-                        <Insets bottom="10"/>
-                    </BorderPane.margin>
                 </GridPane>
 
-                <GridPane alignment="CENTER" hgap="50" GridPane.rowIndex="1">
-                    <HBox alignment="CENTER" spacing="10" GridPane.rowIndex="0" GridPane.columnIndex="0">
-                        <Label styleClass="h4" text="Ano:"/>
-                        <ComboBox fx:id="anosComboBox"/>
+                <GridPane fx:id="gridPaneAnoPeriodo" alignment="CENTER" GridPane.rowIndex="1">
+                    <HBox alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                        <Label fx:id="anoLabel" text="Ano:"/>
+                        <ComboBox fx:id="anoComboBox"/>
                     </HBox>
-                    <HBox alignment="CENTER" spacing="10" GridPane.rowIndex="0" GridPane.columnIndex="1">
-                        <Label styleClass="h4" text="Período: "/>
-                        <ComboBox fx:id="periodosComboBox"/>
+                    <HBox alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                        <Label fx:id="periodoLabel" text="Período: "/>
+                        <ComboBox fx:id="periodoComboBox"/>
                     </HBox>
                     <HBox alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="2">
-                        <Button onAction="#handleCarregarNotas" text="Carregar Notas"
-                                styleClass="btn, btn-success, btn-lg"/>
+                        <Button fx:id="carregarButton" text="Carregar Notas" onAction="#handleCarregarNotas"/>
                     </HBox>
 
                 </GridPane>
@@ -47,10 +37,5 @@
             </GridPane>
 
         </top>
-
-        <center>
-
-
-        </center>
 
 </BorderPane>
