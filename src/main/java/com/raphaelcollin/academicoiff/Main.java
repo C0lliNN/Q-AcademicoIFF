@@ -1,6 +1,6 @@
 package com.raphaelcollin.academicoiff;
 
-import com.raphaelcollin.academicoiff.controller.ControllerCarregamento;
+import com.raphaelcollin.academicoiff.controller.ControllerLoading;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -26,19 +26,17 @@ public class Main extends Application {
 
     // Constantes
 
-    private static final String URL_ARQUIVO_LOGIN = "arquivos/dados.txt";
+    private static final String URL_ARQUIVO_LOGIN = "files/dados.txt";
     public static final String CHAVE_ENCRYPT = "MATRICIFFRC0lliN"; // Chave de Encrypt
     public static final String ALGORITIMO_ECRYPT = "AES"; // Algoritimo usado na Encryptação
-    private static final String URL_JANELA_CARREGAMENTO = "/janela_carregamento.fxml";
-    private static final String URL_JANELA_AUTENTICACAO = "/janela_autenticacao.fxml";
-    private static final String URL_ESTILO_CSS = "/estilo.css";
+    private static final String URL_JANELA_CARREGAMENTO = "/loading_view.fxml";
+    private static final String URL_JANELA_AUTENTICACAO = "/authentication_view.fxml";
+    private static final String URL_ESTILO_CSS = "/style.css";
     private static final String TITLE_STAGE = "Academico IFF";
-    private static final String URL_ICONE_STAGE = "file:arquivos/icon.png";
+    private static final String URL_ICONE_STAGE = "file:files/icon.png";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-            // Variáveis que definirão qual janela será executada
 
         FXMLLoader fxmlLoader;
         Parent root = null;
@@ -46,21 +44,13 @@ public class Main extends Application {
         String matricula;
         String senha;
 
-        /* Se o login tiver sido feito, os dados de login encryptados estarão salvos no arquivo dados.txt e
-           precisarão ser tratados. Caso contrário, o arquivo dados.txt estará totalmente vazio,
-           gerando uma Exception que executará catch que carregará a janela autenticação */
-
 
         try (BufferedReader reader = new BufferedReader(new FileReader(URL_ARQUIVO_LOGIN))) {
-
-                // Definindo Chave
 
             Key secretKey = new SecretKeySpec(CHAVE_ENCRYPT.getBytes(), ALGORITIMO_ECRYPT);
 
             Cipher c = Cipher.getInstance(ALGORITIMO_ECRYPT);
             c.init(Cipher.DECRYPT_MODE, secretKey);
-
-            // Decriptando matricula
 
             String matriculaEncryptada = reader.readLine();
 
@@ -71,38 +61,28 @@ public class Main extends Application {
 
             String senhaEncryptada = reader.readLine();
 
-                // Decriptando senha
-
             byte[] byteDecSenha = new BASE64Decoder().decodeBuffer(senhaEncryptada);
             byte[] byteDecodificaSenha = c.doFinal(byteDecSenha);
 
             senha = new String(byteDecodificaSenha);
 
-                // Carregando janela carregamento
-
             fxmlLoader = new FXMLLoader(getClass().getResource(URL_JANELA_CARREGAMENTO));
             root = fxmlLoader.load();
 
-            ControllerCarregamento controllerCarregamento = fxmlLoader.getController();
+            ControllerLoading controllerLoading = fxmlLoader.getController();
 
-                // Configurando controller para o processamento
-
-            controllerCarregamento.setMatricula(matricula);
-            controllerCarregamento.setSenha(senha);
-            controllerCarregamento.setSalvarDados(false);
-            controllerCarregamento.processar();
+            controllerLoading.setMatricula(matricula);
+            controllerLoading.setSenha(senha);
+            controllerLoading.setSaveLoginData(false);
+            controllerLoading.processar();
 
         } catch (Exception e) {
-
-                // Carregando janela autenticação
 
             fxmlLoader = new FXMLLoader(getClass().getResource(URL_JANELA_AUTENTICACAO));
             root = fxmlLoader.load();
 
 
         } finally {
-
-                // Configurações gerais da Stage
 
             if (root != null){
 

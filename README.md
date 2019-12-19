@@ -1,16 +1,21 @@
 # Q-AcademicoIFF
 
-Uma Aplicação Web Scraping feita em Java usando JavaFX com objetivo de extrair notas de um sistema acadêmico pertencente ao Instituto Federal Fluimense.
+A Web Scrapping Application developed in Java using JavaFX with the purpose of extracting notes from an academic system belonging to the Instituto Federal Fluimense.
 
 ![](https://i.imgur.com/z3oLngr.png)
 
-## O que é o Q-Acadêmico IFF ?
+## What is the Q-Academico IFF ?
 
-[**Q-Acadêmico IFF**](https://academico.iff.edu.br/qacademico/index.asp?t=1001) é um sistema desenvolvido pela [**Qualidata**](http://www2.qualidata.com.br/) para o [**Instituto Federal Fluminense (IFF)**](http://portal1.iff.edu.br/) com objetivo principal de permitir que professores lancem notas e os alunos as possam visualizar. Porém, esse sistema já bem antigo e não possui uma aparência atrativa. Nesse sentido, essa aplicação foi desenvolvida para que os alunos da instituição possam visualizar suas notas de uma maneira bem mais agradável e atrativa.
+[**Q-Acadêmico IFF**](https://academico.iff.edu.br/qacademico/index.asp?t=1001) is a system developed by [**Qualidata**](http://www2.qualidata.com.br/) for the [**Instituto Federal Fluminense (IFF)**](http://portal1.iff.edu.br/) with the primary purpose of allowing teachers to release grades and students to view them. However, this system is very old and does not look attractive. In this sense, this application was developed so that the students of the institution can view their grades in a much more pleasant and attractive way.
 
-## Como Funciona
+##Requirements
 
-A aplicação usa o [**HtmlUnit**](https://www.seleniumhq.org/projects/webdriver/) que é um Navegador Web controlado através da linguagem de programação Java. Com esse recurso, cada vez que o usuário solicita login na aplicação, esse broswer é aberto no background (sem que o usuário veja). Em seguida, o navegador faz login no site com os dados fornecidos pelo usuário na aplicação, entra no boletim, extrai e trata os dados (as notas). Em fim, o boletim será exibido ao usuário.
+* JDK 8+
+* Internet Connection
+
+## How it works
+
+The Application use the [**HtmlUnit**](https://www.seleniumhq.org/projects/webdriver/) which is a web browser controlled by the Java programming language. With this feature, each time the user requests login to the application, this broswer opens in the background (without the user seeing it). Then the browser logs in to the site with the data provided by the user in the application, enters the newsletter, extracts and treats the data (the grades). Finally, the newsletter will be displayed to the user.
 
 ![](https://i.imgur.com/vCBTLY4.png)
 

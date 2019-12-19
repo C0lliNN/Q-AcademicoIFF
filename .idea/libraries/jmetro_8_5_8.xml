@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jmetro-8.5.8">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jmetro-8.5.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -18,7 +18,7 @@ import jfxtras.styles.jmetro8.JMetro.Style;
 
 import java.io.IOException;
 
-public class ControllerAutenticacao {
+public class ControllerAuthentication {
 
     // Controles
 
@@ -43,11 +43,9 @@ public class ControllerAutenticacao {
     @FXML
     private Button entrarButton;
 
-    // Constantes
-
     private static final String REGULAR_EXPRESSION_MATRICULA = "\\d{12}";
-    private static final String URL_IMAGEVIEW = "file:arquivos/titulo.png";
-    private static final String URL_JANELA_CARREGAMENTO = "/janela_carregamento.fxml";
+    private static final String URL_IMAGEVIEW = "file:files/titulo.png";
+    private static final String URL_JANELA_CARREGAMENTO = "/loading_view.fxml";
     private static final String ID_ANCHORPANE_CSS = "login-container";
     private static final String ID_TEXTFIELD_MATRICULA_CSS = "matricula-field";
     private static final String ID_PASSWORDFIELD_SENHA_CSS = "senha-field";
@@ -66,13 +64,9 @@ public class ControllerAutenticacao {
         double width = tamanhoTela.getWidth() * 0.15;
         double height = width * 1.8;
 
-        // Definindo Tamanho do Container de Login
-
         anchorPane.setPrefSize(width,height);
         anchorPane.setMinSize(width,height);
         anchorPane.setMaxSize(width,height);
-
-            // CSS
 
         tituloLabel.setStyle("-fx-font-size: " + width * 0.17 + "px");
         matriculaField.setStyle("-fx-font-size: " + width * 0.08 + "px");
@@ -80,13 +74,9 @@ public class ControllerAutenticacao {
         checkBox.setStyle("-fx-font-size: " + width * 0.07 + "px");
         entrarButton.setStyle("-fx-font-size: " + width * 0.1 + "px");
 
-            // ImageView
-
         imageView.setImage(new Image(URL_IMAGEVIEW));
         imageView.setFitWidth(tamanhoTela.getWidth() * 0.36);
         imageView.setFitHeight(tamanhoTela.getWidth() * 0.36 * 0.27);
-
-            // Rectangle
 
         rectangle.setFill(Color.rgb(119,252,3,0.25));
         rectangle.setArcWidth(width * 0.4);
@@ -95,8 +85,6 @@ public class ControllerAutenticacao {
         rectangle.setHeight(height);
         rectangle.setStrokeWidth(width * 0.00173);
         rectangle.setStroke(Color.rgb(119,252,3,1));
-
-        // Posição dos Elementos
 
         AnchorPane.setTopAnchor(hBoxImageView, tamanhoTela.getHeight() * 0.04);
         AnchorPane.setLeftAnchor(hBoxImageView,0.0);
@@ -127,8 +115,6 @@ public class ControllerAutenticacao {
         AnchorPane.setTopAnchor(entrarButton, height * 0.73);
         AnchorPane.setLeftAnchor(entrarButton, width * 0.72);
 
-            // Definindo IDs
-
         anchorPane.setId(ID_ANCHORPANE_CSS);
         matriculaField.setId(ID_TEXTFIELD_MATRICULA_CSS);
         senhaField.setId(ID_PASSWORDFIELD_SENHA_CSS);
@@ -138,8 +124,6 @@ public class ControllerAutenticacao {
     }
 
     public void handleLogin(){
-
-            // Validação dos Dados
 
         String erro = "";
         boolean erroEncontrado = false;
@@ -156,11 +140,9 @@ public class ControllerAutenticacao {
         }
 
         if (erroEncontrado){
-            exibirAlert("Erro no Processamento dos dados",erro);
+            showAlert("Erro no Processamento dos dados",erro);
 
         } else {
-
-                // Iniciando Janela de Carregamento
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(URL_JANELA_CARREGAMENTO));
 
@@ -169,15 +151,13 @@ public class ControllerAutenticacao {
             try {
                 Parent root = fxmlLoader.load();
                 stage.getScene().setRoot(root);
-                ControllerCarregamento controllerCarregamento = fxmlLoader.getController();
+                ControllerLoading controllerLoading = fxmlLoader.getController();
 
-                // Configurando Janela de Carregamento para o processamento dos dados
-
-                if (controllerCarregamento != null){
-                    controllerCarregamento.setMatricula(matriculaField.getText());
-                    controllerCarregamento.setSenha(senhaField.getText());
-                    controllerCarregamento.setSalvarDados(checkBox.isSelected());
-                    controllerCarregamento.processar();
+                if (controllerLoading != null){
+                    controllerLoading.setMatricula(matriculaField.getText());
+                    controllerLoading.setSenha(senhaField.getText());
+                    controllerLoading.setSaveLoginData(checkBox.isSelected());
+                    controllerLoading.processar();
                 }
 
             } catch (IOException e){
@@ -187,15 +167,13 @@ public class ControllerAutenticacao {
         }
     }
 
-        // Método que exibirá um alert
-
-    void exibirAlert(String cabecalho, String texto){
+    void showAlert(String headerText, String contentText){
         Stage stage = (Stage) root.getScene().getWindow();
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(stage.getTitle());
         alert.initOwner(stage);
-        alert.setHeaderText(cabecalho);
-        alert.setContentText(texto);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
         alert.show();
     }
 

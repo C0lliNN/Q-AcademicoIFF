@@ -5,7 +5,7 @@
 
 
 <GridPane fx:id="root" xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.raphaelcollin.academicoiff.controller.ControllerCarregamento" alignment="CENTER">
+          fx:controller="com.raphaelcollin.academicoiff.controller.ControllerLoading" alignment="CENTER">
 
     <HBox alignment="CENTER" GridPane.rowIndex="0">
         <Label fx:id="label"/>
@@ -15,7 +15,7 @@
 
 
     <HBox alignment="CENTER" GridPane.rowIndex="2">
-        <Button fx:id="button" onAction="#handleVoltar" text="Voltar"/>
+        <Button fx:id="button" onAction="#handleCancel" text="Voltar"/>
     </HBox>
 
 </GridPane>

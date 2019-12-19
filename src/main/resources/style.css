@@ -3,7 +3,7 @@
     -fx-background-color: white;
 }
 
-    /* Janela Autenticação */
+    /* Authentication View */
 
 #login-container {
     -fx-background-color: transparent;
@@ -51,7 +51,7 @@
     -fx-background-color: white;
 }
 
-    /* Janela Carregamento */
+    /* Loading View */
 
 #progress-indicator {
     -fx-progress-color: #3d9401;
@@ -73,7 +73,7 @@
     -fx-border-color: #611b0c;
 }
 
-    /* Janela Principal */
+    /* Dashboard View */
 
 #sair-button {
     -fx-background-color: #9c2d14;

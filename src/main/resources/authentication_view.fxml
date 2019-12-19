@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="root" fx:controller="com.raphaelcollin.academicoiff.controller.ControllerAutenticacao"
+<AnchorPane fx:id="root" fx:controller="com.raphaelcollin.academicoiff.controller.ControllerAuthentication"
             xmlns:fx="http://javafx.com/fxml">
 
     <HBox fx:id="hBoxImageView" alignment="CENTER">

@@ -31,6 +31,8 @@ import java.util.List;
 
 public class ControllerLoading {
 
+    // Controles
+
     @FXML
     private GridPane root;
     @FXML
@@ -40,15 +42,19 @@ public class ControllerLoading {
     @FXML
     private Button button;
 
+    // Atributos cujos valores virão da janela autenticação ou do arquivo dados.txt
+
     private String matricula;
 
     private String senha;
 
-    private boolean saveLoginData;
+    private boolean salvarDados;
+
+    // Constantes
 
     private static final String ID_PROGRESS_INDICATOR_CSS = "progress-indicator";
     private static final String ID_BUTTON_SAIR_CSS = "voltar-button";
-    private static final int TIMEOUT = 10000;
+    private static final int TIMEOUT = 10000; // 10 Segundos
     private static final String URL_PAGINA_LOGIN_HTML = "https://academico.iff.edu.br/qacademico/index.asp?t=1001";
     private static final String NAME_FORM_HTML = "frmLogin";
     private static final String NAME_INPUT_MATRICULA_HTML = "LOGIN";
@@ -58,35 +64,56 @@ public class ControllerLoading {
     private static final String URL_JANELA_PRINCIPAL = "/dashboard_view.fxml";
     private static final String URL_JANELA_AUTENTICACAO = "/authentication_view.fxml";
     private static final String XPATH_TABLE_HTML = "//table[contains(@width,'95%')]";
-    private static final String URL_ARQUIVO_LOGIN = "files/dados.txt";
+    private static final String URL_ARQUIVO_LOGIN = "arquivos/dados.txt";
+
+    // Variáveis de Controle
 
     private boolean erroLogin = false;
+
     private boolean erroTimeout = false;
+
     private boolean erroInesperado = false;
 
+    // Services
+
+        /* Fará a autenticação, retirada e o carregamento dos dados do boletim */
     private Service<ObservableList<TableView<ObservableList<SimpleStringProperty>>>> serviceObterNotas;
+
+        /* Salvará em um arquivo as informações de login do usuário(Matricula e Senha) caso o mesmo tenha selecionado essa
+        *  opção na janela de autenticação */
 
     private Service serviceSalvarLogin;
 
-    private HtmlPage page;
+    // HTMLPAGE
+    private HtmlPage pagina;
 
     public void initialize(){
+
+        // JMetro
 
         JMetro metro = new JMetro(Style.LIGHT);
         metro.applyTheme(root);
 
-        Rectangle2D screenSize = Screen.getPrimary().getBounds();
+        Rectangle2D tamanhoTela = Screen.getPrimary().getBounds();
 
-        root.setVgap(screenSize.getHeight() * 0.037);
+            // Configurando o tamanho dos controles
 
-        progressIndicator.setPrefWidth(screenSize.getWidth() * 0.7);
-        progressIndicator.setPrefHeight(screenSize.getHeight() * 0.08);
+        root.setVgap(tamanhoTela.getHeight() * 0.037);
 
-        label.setStyle("-fx-font-size: " + screenSize.getWidth() * 0.026 + "px");
-        button.setStyle("-fx-font-size: " + screenSize.getWidth() * 0.015 + "px");
+        progressIndicator.setPrefWidth(tamanhoTela.getWidth() * 0.7);
+        progressIndicator.setPrefHeight(tamanhoTela.getHeight() * 0.08);
+
+            // CSS
+
+        label.setStyle("-fx-font-size: " + tamanhoTela.getWidth() * 0.026 + "px");
+        button.setStyle("-fx-font-size: " + tamanhoTela.getWidth() * 0.015 + "px");
+
+            // Definindo ID
 
         progressIndicator.setId(ID_PROGRESS_INDICATOR_CSS);
         button.setId(ID_BUTTON_SAIR_CSS);
+
+            // Definindo o Service Obter Nota
 
         serviceObterNotas = new Service<ObservableList<TableView<ObservableList<SimpleStringProperty>>>>() {
             @Override
@@ -97,18 +124,23 @@ public class ControllerLoading {
 
                         updateMessage("Conectando...");
 
-                        WebClient client = new WebClient(); // HTMLUnit Client
+                        WebClient cliente = new WebClient(); // Client do HTMLUnit
 
-                        client.getOptions().setCssEnabled(false);
-                        client.getOptions().setDownloadImages(false);
-                        client.getOptions().setThrowExceptionOnScriptError(false);
-                        client.getOptions().setThrowExceptionOnFailingStatusCode(false);
-                        client.getOptions().setUseInsecureSSL(true);
-                        client.getOptions().setTimeout(TIMEOUT); //
+                        // Definindo configurações do navegador para conferir-lo maior eficiência
+
+                        cliente.getOptions().setCssEnabled(false);
+                        cliente.getOptions().setDownloadImages(false);
+                        cliente.getOptions().setThrowExceptionOnScriptError(false);
+                        cliente.getOptions().setThrowExceptionOnFailingStatusCode(false);
+                        cliente.getOptions().setUseInsecureSSL(true);
+                        cliente.getOptions().setTimeout(TIMEOUT); // Tempo máximo de Execução da Thread
+
+                        /* Todos esses blocos try-catch são necessário para caso haja ocorra algum erro, a thread seja cancelada
+                           e a aplicação retorne para janela de autenticação */
 
                         try {
                             try {
-                                page = client.getPage(URL_PAGINA_LOGIN_HTML); // Acessando página de login
+                                pagina = cliente.getPage(URL_PAGINA_LOGIN_HTML); // Acessando página de login
                             } catch (IOException e) {
                                 System.out.println("Erro: " + e.getMessage());
                                 erroInesperado = true;
@@ -117,13 +149,15 @@ public class ControllerLoading {
 
                             updateMessage("Autenticando...");
 
+                            // Preenchendo o Formulário
+
                             HtmlForm formulario;
                             HtmlInput matriculaInput;
                             HtmlInput senhaInput ;
                             HtmlInput okSubmitInput = null;
 
                             try {
-                                formulario = page.getFormByName(NAME_FORM_HTML);
+                                formulario = pagina.getFormByName(NAME_FORM_HTML);
                                 matriculaInput = formulario.getInputByName(NAME_INPUT_MATRICULA_HTML);
                                 senhaInput = formulario.getInputByName(NAME_INPUT_SENHA_HTML);
                                 okSubmitInput = formulario.getInputByName(NAME_INPUT_SUBMIT_HTML);
@@ -135,7 +169,7 @@ public class ControllerLoading {
                             }
 
                             try {
-                                page = okSubmitInput.click();
+                                pagina = okSubmitInput.click(); // Mudando de Página
                             } catch (IOException e) {
                                 System.out.println("Erro: " + e.getMessage());
                                 erroInesperado = true;
@@ -143,11 +177,13 @@ public class ControllerLoading {
                             }
 
                             updateMessage("Obtendo Notas...");
-                            HtmlAnchor link = null;
+                            HtmlAnchor link = null; // Obtendo link para página de Boletim
 
+                            /* Caso não tenha sido possível obter o link, será sinal de que o logn não foi efetuado com sucesso.
+                             *  Nessa situação, será gerada uma Exception que indica que houve erro no login */
 
                             try {
-                                link = (HtmlAnchor) page.getByXPath(XPATH_LINK_BOLETIM_HTML).get(0);
+                                link = (HtmlAnchor) pagina.getByXPath(XPATH_LINK_BOLETIM_HTML).get(0);
                             } catch (Exception e) {
                                 System.out.println("Erro: " + e.getMessage());
                                 erroLogin = true;
@@ -155,14 +191,14 @@ public class ControllerLoading {
                             }
 
                             try {
-                                page = link.click();
+                                pagina = link.click(); // Mudando de Página
                             } catch (IOException e) {
                                 System.out.println("Erro: " + e.getMessage());
                                 erroInesperado = true;
                                 cancel();
                             }
 
-                            return obterDados(page);
+                            return obterDados(pagina);
 
                         } catch (ScriptException exception) {
                             erroTimeout = true;
@@ -173,6 +209,9 @@ public class ControllerLoading {
                 };
             }
         };
+
+            /* Caso o Service tenha sido executado com sucesso, a janela principal contendo os dados em forma de tabela(s)
+            *  será exibida  para o usuário */
 
         serviceObterNotas.setOnSucceeded(event -> {
 
@@ -185,20 +224,22 @@ public class ControllerLoading {
                     Parent root = fxmlLoader.load();
 
                     ControllerDashboard controllerDashboard = fxmlLoader.getController();
-                    controllerDashboard.setPagina(page);
+                    controllerDashboard.setPagina(pagina);
                     controllerDashboard.colocarDadosNaTabela(serviceObterNotas.getValue());
                     controllerDashboard.configurarCabecalho();
 
                     Stage stage = (Stage) this.root.getScene().getWindow();
                     stage.getScene().setRoot(root);
 
+                    /* Se o usuário tiver marcado o CheckBox "Mantenha-me conectado" da janela autenticação, deve-se salvar
+                       os dados no arquivo dados.txt o que será feito pelo serviceSalvarLogin */
 
-                    if (saveLoginData) {
+                    if (salvarDados) {
                         serviceSalvarLogin.start();
                     }
 
                 } else {
-                    serviceObterNotas.cancel();
+                    serviceObterNotas.cancel(); // Executa no Evento abaixo que recarrega a janela autenticação, exibindo um alert de erro
                 }
 
             } catch (IOException e){
@@ -206,6 +247,9 @@ public class ControllerLoading {
             }
 
         });
+
+        /* Caso tenha ocorrido algum erro na obtenção dos dados, a janela autenticação será novamente carregada, exibindo um alert
+        *  com o erro ocorrido. */
 
         serviceObterNotas.setOnCancelled(event -> {
             Stage stage = (Stage) root.getScene().getWindow();
@@ -217,11 +261,11 @@ public class ControllerLoading {
                 ControllerAuthentication controllerAuthentication = fxmlLoader.getController();
 
                 if (erroLogin) {
-                    controllerAuthentication.showAlert("Erro no Login","Matrícula ou senha inválido(a)");
+                    controllerAuthentication.exibirAlert("Erro no Login","Matrícula ou senha inválido(a)");
                 } else if (erroTimeout) {
-                    controllerAuthentication.showAlert("Tempo Excedido","Verifique sua conexão com a Internet");
+                    controllerAuthentication.exibirAlert("Tempo Excedido","Verifique sua conexão com a Internet");
                 } else if (erroInesperado) {
-                    controllerAuthentication.showAlert("Erro no Login","Ocorreu um erro inesperado! Tente novamente mais tarde");
+                    controllerAuthentication.exibirAlert("Erro no Login","Ocorreu um erro inesperado! Tente novamente mais tarde");
                 }
 
             } catch (IOException e) {
@@ -249,6 +293,8 @@ public class ControllerLoading {
                     byte[] cipher2 = c.doFinal(senha.getBytes());
                     String senhaEncrypted = new BASE64Encoder().encode(cipher2);
 
+                    // Escrevendo dados
+
                     writer.write(matriculaEncrypted);
                     writer.newLine();
                     writer.write(senhaEncrypted);
@@ -265,6 +311,8 @@ public class ControllerLoading {
 
         };
 
+            // Bindando progressIndicator e Label com o Service de Obtençao das notas
+
         progressIndicator.progressProperty().bind(serviceObterNotas.progressProperty());
         label.textProperty().bind(serviceObterNotas.messageProperty());
 
@@ -272,21 +320,38 @@ public class ControllerLoading {
 
     public void processar(){
 
+            // �?ncio da Execução da Thread
+
         serviceObterNotas.start();
     }
 
+        /* Método que recebera a matricula, senha, e uma variável que indicará se é para
+           salvar os dados ou não. Com esses dados o driver vai entrar no site no Acadêmico e
+           tentar fazer login com esses dados. Caso consiga ele vai na página do boletim e retornará
+           o arquivo html do página boletim em formato de String. */
+
     static ObservableList<TableView<ObservableList<SimpleStringProperty>>> obterDados(HtmlPage pagina){
 
+        // Lista que contem todas as tabelas de notas em formato HTML
+
         List<HtmlTable> tabelasHtml = pagina.getByXPath(XPATH_TABLE_HTML);
+
+        // Lista que conterá todas as tabelas como objetos da classe TableView configuradas e preenchidas
 
         ObservableList<TableView<ObservableList<SimpleStringProperty>>> tablesView =
                 FXCollections.observableArrayList();
 
-        for (HtmlTable tabelaHtml : tabelasHtml) {
+        for (HtmlTable tabelaHtml : tabelasHtml) { // Percorrendo Todas as Tabelas encontradas
 
-            TableView<ObservableList<SimpleStringProperty>> tableView = new TableView<>();
+            TableView<ObservableList<SimpleStringProperty>> tableView = new TableView<>(); // Criando TableView
 
             for (int i = 0; i < tabelaHtml.getRow(1).getCells().size(); i++) {
+
+                // Criando, configurando e adicionando as colunas da Tabela
+
+                /* Como o número de colunas é muito variável, dependendo do curso do aluno. Não foi possível
+                 *  usar objetos estáticos para preencher a tabela. Os dados são alocados dinamicamente usando
+                 *  uma ObservableList<SimpleStringProperty> */
 
                 TableColumn<ObservableList<SimpleStringProperty>, String> coluna =
                         new TableColumn<>(tabelaHtml.getRow(1).getCells().get(i).getTextContent().trim());
@@ -295,13 +360,21 @@ public class ControllerLoading {
                 tableView.getColumns().add(coluna);
             }
 
+            // Criando Lista que conterá todos os dados da tela, ou seja, as disciplinas e notas
+
             ObservableList<ObservableList<SimpleStringProperty>> dados = FXCollections.observableArrayList();
 
+                                    /* Começa-se a partir da terceira linha pois a primeira e segunda linha da tabela do documento
+                                       HTML referem-se respectivamente ao Título e cabeçalho da Tabela. */
+
             for (HtmlTableRow linha : tabelaHtml.getRows().subList(2, tabelaHtml.getRowCount())) {
+
+                // Lista que conterá os dados de uma linha, ou seja, de uma disciplina
 
                 ObservableList<SimpleStringProperty> linhaDados = FXCollections.observableArrayList();
 
                 for (HtmlTableCell celula : linha.getCells()) {
+                    // Adicionado células a linha de dados
                     linhaDados.add(new SimpleStringProperty(celula.getTextContent().trim()));
                 }
                 dados.add(linhaDados);
@@ -316,8 +389,10 @@ public class ControllerLoading {
 
     }
 
+    // Cancela a execução da Thread e exclui o login salvo caso o mesmo exista
+
     @FXML
-    public void handleCancel() {
+    public void handleVoltar() {
         try (PrintWriter writer = new PrintWriter(URL_ARQUIVO_LOGIN)) {
             writer.print("");
         } catch (Exception e) {
@@ -336,8 +411,8 @@ public class ControllerLoading {
         this.senha = senha;
     }
 
-    public void setSaveLoginData(boolean saveLoginData) {
-        this.saveLoginData = saveLoginData;
+    public void setSalvarDados(boolean salvarDados) {
+        this.salvarDados = salvarDados;
     }
 
 }

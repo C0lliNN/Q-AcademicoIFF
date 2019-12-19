@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.raphaelcollin.academicoiff.controller.ControllerPrincipal">
+            fx:controller="com.raphaelcollin.academicoiff.controller.ControllerDashboard">
 
         <top>
             <GridPane>
@@ -15,21 +15,21 @@
                         <Label fx:id="labelNome"/>
                     </HBox>
                     <HBox fx:id="hBoxSairButton" alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="1">
-                        <Button fx:id="sairButton" text="Sair" onAction="#handleSair"/>
+                        <Button fx:id="sairButton" text="Log out" onAction="#handleSair"/>
                     </HBox>
                 </GridPane>
 
                 <GridPane fx:id="gridPaneAnoPeriodo" alignment="CENTER" GridPane.rowIndex="1">
                     <HBox alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="0">
-                        <Label fx:id="anoLabel" text="Ano:"/>
+                        <Label fx:id="anoLabel" text="Year:"/>
                         <ComboBox fx:id="anoComboBox"/>
                     </HBox>
                     <HBox alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="1">
-                        <Label fx:id="periodoLabel" text="Período: "/>
+                        <Label fx:id="periodoLabel" text="Period: "/>
                         <ComboBox fx:id="periodoComboBox"/>
                     </HBox>
                     <HBox alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="2">
-                        <Button fx:id="carregarButton" text="Carregar Notas" onAction="#handleCarregarNotas"/>
+                        <Button fx:id="carregarButton" text="Load Grades" onAction="#handleCarregarNotas"/>
                     </HBox>
 
                 </GridPane>
