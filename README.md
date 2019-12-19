@@ -2,7 +2,7 @@
 
 A Web Scrapping Application developed in Java using JavaFX with the purpose of extracting notes from an academic system belonging to the Instituto Federal Fluimense.
 
-![](https://i.imgur.com/z3oLngr.png)
+![](https://github.com/C0lliNN/Q-AcademicoIFF/blob/master/screenshots/authetication.png)
 
 ## What is the Q-Academico IFF ?
 
@@ -17,5 +17,5 @@ A Web Scrapping Application developed in Java using JavaFX with the purpose of e
 
 The Application use the [**HtmlUnit**](https://www.seleniumhq.org/projects/webdriver/) which is a web browser controlled by the Java programming language. With this feature, each time the user requests login to the application, this broswer opens in the background (without the user seeing it). Then the browser logs in to the site with the data provided by the user in the application, enters the newsletter, extracts and treats the data (the grades). Finally, the newsletter will be displayed to the user.
 
-![](https://i.imgur.com/vCBTLY4.png)
+![](https://github.com/C0lliNN/Q-AcademicoIFF/blob/master/screenshots/dashboard.png)
 
