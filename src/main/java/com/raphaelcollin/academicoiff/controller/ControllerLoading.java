@@ -61,7 +61,7 @@ public class ControllerCarregamento {
     private static final String NAME_INPUT_SENHA_HTML = "SENHA";
     private static final String NAME_INPUT_SUBMIT_HTML = "Submit";
     private static final String XPATH_LINK_BOLETIM_HTML = "//a[contains(@href,'/qacademico/alunos/boletim/index.asp')]";
-    private static final String URL_JANELA_PRINCIPAL = "/janela_principal.fxml";
+    private static final String URL_JANELA_PRINCIPAL = "/dashboard_view.fxml";
     private static final String URL_JANELA_AUTENTICACAO = "/janela_autenticacao.fxml";
     private static final String XPATH_TABLE_HTML = "//table[contains(@width,'95%')]";
     private static final String URL_ARQUIVO_LOGIN = "arquivos/dados.txt";
@@ -320,7 +320,7 @@ public class ControllerCarregamento {
 
     public void processar(){
 
-            // �?ncio da Execução da Thread
+            // �?ncio da Execução da Thread
 
         serviceObterNotas.start();
     }
