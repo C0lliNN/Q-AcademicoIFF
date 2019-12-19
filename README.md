@@ -8,7 +8,7 @@ A Web Scrapping Application developed in Java using JavaFX with the purpose of e
 
 [**Q-Acadêmico IFF**](https://academico.iff.edu.br/qacademico/index.asp?t=1001) is a system developed by [**Qualidata**](http://www2.qualidata.com.br/) for the [**Instituto Federal Fluminense (IFF)**](http://portal1.iff.edu.br/) with the primary purpose of allowing teachers to release grades and students to view them. However, this system is very old and does not look attractive. In this sense, this application was developed so that the students of the institution can view their grades in a much more pleasant and attractive way.
 
-##Requirements
+## Requirements
 
 * JDK 8+
 * Internet Connection
